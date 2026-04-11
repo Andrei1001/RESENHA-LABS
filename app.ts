@@ -8,7 +8,8 @@ class personagem {
     private _inventario = [];
     private _capacidadeInventario;
 
-    constructor (classe: string, forca: number, agilidade: number, vigor: number, intelecto: number, presenca: number, origem: string, nex: number){
+    constructor (classe: string, forca: number, agilidade: number, vigor: number,
+        intelecto: number, presenca: number, origem: string, nex: number){
         this._classe = classe.toUpperCase();
         this._atributos.push(forca, agilidade, vigor, intelecto, presenca);
         this._origem = origem;
@@ -18,7 +19,7 @@ class personagem {
 
 
 
-    adicionarItem(item:string){
+    adicionarItem(item:string){ // Sistema de adicionar um item pro inventario e calcular o peso dele
         const itens = ['FACA', 'MARTELO', 'PUNHAL', 'BASTÃO', 'MACHETE', 'LANÇA', 'CAJADO', 'ARCO', 'BESTA',
         'PISTOLA', 'REVÓLVER', 'FUZIL DE CAÇA', 'MACHADINHA', 'NUNCHAKO', 'CORRENTE', 'ESPADA', 'FLORETE', 'MACHADO',
         'MAÇA', 'ACHA', 'GADANHO', 'KATANA', 'MARRETA', 'MONTANTE', 'MOTOSSERRA', 'ARCO COMPOSTO', 'BALESTRA', 'SUBMETRALHADORA',
@@ -31,16 +32,16 @@ class personagem {
         'PROTEÇÃO LEVE', 'PROTEÇÃO PESADA', 'ESCUDO'];      
         item = item.toUpperCase();
         this._inventario.push(item);
-        if(item == "PROTEÇÃO LEVE"){
+        if(item == "PROTEÇÃO LEVE"){ // Se a proteção for leve aumenta a defesa em 5
             this._protecao = (this._protecao>5) ? 10: 5;;
         }
-        if(item == "PROTEÇÃO PESADA"){
+        if(item == "PROTEÇÃO PESADA"){ // Se a proteção for pesada aumenta a defesa em 10
             this._protecao = 10;
         }
-        if(item == 'ESCUDO'){
+        if(item == 'ESCUDO'){ // Se for um escudo aumenta a defesa em 2
             this._protecao+=2;
         }
-                switch(item){
+                switch(item){ // Verifica se o item existe, se existir adiciona o peso dele corretamente
                 case "FACA":case 'MARTELO':case 'PUNHAL':case 'BASTÃO':case 'MACHETE':
                 case 'LANÇA': case 'PISTOLA':case 'REVÓLVER':case 'MACHADINHA':case 'NUNCHAKO':case 'CORRENTE':case 'ESPADA':
                 case 'FLORETE':case 'MACHADO': case 'MAÇA':case 'SUBMETRALHADORA': case 'BALAAS CURTAS':case 'BALAS LONGAS':
@@ -65,12 +66,12 @@ class personagem {
                     this._capacidadeInventario = this._capacidadeInventario + 2;
                     break;
                 default:
-                    throw new Error('O item digitado não existe ou está digitado errado');
+                    throw new Error('O item digitado não existe ou está digitado errado'); // Se o item não existir da um erro
                     break;
                 }
 
     }
-
+        // Getters pros 5 atributos 
     get forca() {
         const atributo = this._atributos[0];
         return atributo;
@@ -91,6 +92,7 @@ class personagem {
         const atributo = this._atributos[4];
         return atributo;
     }
+        // Getters pros recursos adicionais na ficha
     get limite_PE(){
         const limite_PE = this._nex;
         return limite_PE;
@@ -99,7 +101,7 @@ class personagem {
         const defesa = 10 + this._atributos[1] + this._protecao;
         return defesa;
     }
-
+        // Getters pro HP, Sanidade e PE
     get hp_maximo() {
         var hp_inicial:number, hp_maximo, hp_nex;
         switch(this._classe){
@@ -159,11 +161,13 @@ class personagem {
         pe_maximo = (this._nex > 1) ? pe_inicial + pe_nex : pe_inicial;
         return pe_maximo;
         }
+            // Getter pra capacidade do inventario
         get capacidadeInventario() {
             const capacidadeInventario = this._capacidadeInventario;
             return capacidadeInventario;
         }
-
+            // Coisas do ataque q eu ainda to fazendo
+    
     }
 // A Sintaxe para criar um personagem é: Classe, força, destreza, vigor, intelecto, presença, origem e NEX
 const Claudio = new personagem("combatente", 3, 1, 3, 3, 2, "cultista arrependido", 15);
