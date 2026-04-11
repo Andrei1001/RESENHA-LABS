@@ -6,15 +6,29 @@ class personagem {
     private _nex: number;
     private _protecao = 0;
     private _inventario = [];
+    private _capacidadeInventario;
 
     constructor (classe: string, forca: number, agilidade: number, vigor: number, intelecto: number, presenca: number, origem: string, nex: number){
         this._classe = classe.toUpperCase();
         this._atributos.push(forca, agilidade, vigor, intelecto, presenca);
         this._origem = origem;
         this._nex = nex/5;
+        this._capacidadeInventario = 5*forca;
     }
 
+
+
     adicionarItem(item:string){
+        const itens = ['FACA', 'MARTELO', 'PUNHAL', 'BASTÃO', 'MACHETE', 'LANÇA', 'CAJADO', 'ARCO', 'BESTA',
+        'PISTOLA', 'REVÓLVER', 'FUZIL DE CAÇA', 'MACHADINHA', 'NUNCHAKO', 'CORRENTE', 'ESPADA', 'FLORETE', 'MACHADO',
+        'MAÇA', 'ACHA', 'GADANHO', 'KATANA', 'MARRETA', 'MONTANTE', 'MOTOSSERRA', 'ARCO COMPOSTO', 'BALESTRA', 'SUBMETRALHADORA',
+        'ESPINGARDA', 'FUZIL DE ASSALTO', 'FUZIL DE PRECISÃO', 'BAZUCA', 'LANÇA-CHAMAS', 'METRALHADORA', 'BALAAS CURTAS',
+        'BALAS LONGAS', 'CARTUCHOS', 'COMBUSTÍVEL', 'FLECHAS', 'FOGUETE', 'KIT DE PERÍCIA', 'UTENSÍLIO', 'VESTIMENTA',
+        'GRANADA DE ATORDOAMENTO', 'GRANADA DE FRAGMENTAÇÃO', 'GRANADA DE FUMAÇA', 'GRANADA INCENDIÁRIA', 'MINA ANTIPESSOAL',
+        'ALGEMAS', 'ARPÉU', 'BANDOLEIRA', 'BINÓCULOS', 'BLOQUEADOR DE SINAL', 'CICATRIZANTE', 'CORDA',
+        'EQUIPAMENTO DE SOBREVIVÊNCIA', 'LANTERNA TÁTICA', 'MÁSCARA DE GÁS', 'MOCHILA MILITAR', 'ÓCULOS DE VISÃO TÉRMICA',
+        'PÉ DE CABRA', 'PISTOLA DE DARDOS', 'PISTOLA SINALIZADORA', 'SOQUEIRA', 'SPRAY DE PIMENTA', 'TASER', 'TRAJE HAZMAT',
+        'PROTEÇÃO LEVE', 'PROTEÇÃO PESADA', 'ESCUDO'];      
         item = item.toUpperCase();
         this._inventario.push(item);
         if(item == "PROTEÇÃO LEVE"){
@@ -23,6 +37,38 @@ class personagem {
         if(item == "PROTEÇÃO PESADA"){
             this._protecao = 10;
         }
+        if(item == 'ESCUDO'){
+            this._protecao+=2;
+        }
+                switch(item){
+                case "FACA":case 'MARTELO':case 'PUNHAL':case 'BASTÃO':case 'MACHETE':
+                case 'LANÇA': case 'PISTOLA':case 'REVÓLVER':case 'MACHADINHA':case 'NUNCHAKO':case 'CORRENTE':case 'ESPADA':
+                case 'FLORETE':case 'MACHADO': case 'MAÇA':case 'SUBMETRALHADORA': case 'BALAAS CURTAS':case 'BALAS LONGAS':
+                case 'CARTUCHOS': case 'COMBUSTÍVEL': case 'FLECHAS': case 'FOGUETE': case 'KIT DE PERÍCIA': case 'UTENSÍLIO':
+                case 'VESTIMENTA':case 'GRANADA DE ATORDOAMENTO': case 'GRANADA DE FRAGMENTAÇÃO': case 'GRANADA DE FUMAÇA':
+                case 'GRANADA INCENDIÁRIA': case 'MINA ANTIPESSOAL': case 'ALGEMAS': case 'ARPÉU': case 'BANDOLEIRA':
+                case 'BINÓCULOS': case 'BLOQUEADOR DE SINAL': case 'CICATRIZANTE': case 'CORDA': case  'LANTERNA TÁTICA':
+                case 'MÁSCARA DE GÁS': case 'ÓCULOS DE VISÃO TÉRMICA': case 'PÉ DE CABRA': case 'PISTOLA DE DARDOS':
+                case 'PISTOLA SINALIZADORA':case 'SOQUEIRA': case 'SPRAY DE PIMENTA': case 'TASER':
+                    this._capacidadeInventario = this._capacidadeInventario - 1;
+                    break;
+                case 'CAJADO': case 'ARCO': case 'BESTA':case 'FUZIL DE CAÇA': case 'ACHA':case 'GADANHO': case 'KATANA': case 'MARRETA':
+                case 'MONTANTE': case 'MOTOSSERRA': case 'ARCO COMPOSTO': case 'BALESTRA': case 'ESPINGARDA':
+                case 'FUZIL DE ASSALTO': case 'FUZIL DE PRECISÃO': case 'BAZUCA': case 'LANÇA-CHAMAS': case 'METRALHADORA':
+                case 'EQUIPAMENTO DE SOBREVIVÊNCIA': case 'TRAJE HAZMAT': case 'PROTEÇÃO LEVE': case 'ESCUDO':
+                    this._capacidadeInventario = this._capacidadeInventario - 2;
+                    break;
+                case 'PROTEÇÃO PESADA':
+                    this._capacidadeInventario = this._capacidadeInventario - 5;
+                    break;
+                case 'MOCHILA MILITAR':
+                    this._capacidadeInventario = this._capacidadeInventario + 2;
+                    break;
+                default:
+                    throw new Error('O item digitado não existe ou está digitado errado');
+                    break;
+                }
+
     }
 
     get forca() {
@@ -113,10 +159,14 @@ class personagem {
         pe_maximo = (this._nex > 1) ? pe_inicial + pe_nex : pe_inicial;
         return pe_maximo;
         }
-
+        get capacidadeInventario() {
+            const capacidadeInventario = this._capacidadeInventario;
+            return capacidadeInventario;
+        }
 
     }
 // A Sintaxe para criar um personagem é: Classe, força, destreza, vigor, intelecto, presença, origem e NEX
-const Claudio = new personagem("combatente", 2, 1, 3, 3, 2, "cultista arrependido", 15);
-Claudio.adicionarItem("proteção leve");
-console.log(Claudio.hp_maximo,Claudio.sanidade_maxima ,Claudio.pe_maximo, Claudio.defesa)
+const Claudio = new personagem("combatente", 3, 1, 3, 3, 2, "cultista arrependido", 15);
+Claudio.adicionarItem('proteção pesada');
+Claudio.adicionarItem('faca');
+console.log(Claudio.hp_maximo,Claudio.sanidade_maxima ,Claudio.pe_maximo, Claudio.defesa, Claudio.capacidadeInventario, Claudio.limite_PE)
