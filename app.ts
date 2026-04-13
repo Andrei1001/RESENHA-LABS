@@ -52,7 +52,7 @@ class personagem {
         this._habilidades[slot] = { atributo, dados, tipo, bonusAcerto, bonusDano };
     }
 
-    // Método pra pegar os atributos para usar em outros métodos
+    // Método pra pegar os atributos para usar nos calculos do método "atacar"
     private getAtributoValor(nome: string) {
         switch (nome) {
             case "FORCA": return this._atributos[0];
