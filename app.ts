@@ -102,7 +102,7 @@ class personagem {
         return defesa;
     }
         // Getters pro HP, Sanidade e PE
-    get hp_maximo() {
+    get hp() {
         var hp_inicial:number, hp_maximo, hp_nex;
         switch(this._classe){
             case "COMBATENTE":
@@ -122,7 +122,7 @@ class personagem {
         return hp_maximo;
         }
 
-        get sanidade_maxima() {
+        get sanidade() {
             var sanidade_inicial:number, sanidade_maxima, sanidade_nex;
         switch(this._classe){
             case "COMBATENTE":
@@ -142,7 +142,7 @@ class personagem {
         return sanidade_maxima;
         }
 
-        get pe_maximo() {
+        get pe() {
             var pe_inicial:number, pe_maximo, pe_nex;
         switch(this._classe){
             case "COMBATENTE":
@@ -173,4 +173,4 @@ class personagem {
 const Claudio = new personagem("combatente", 3, 1, 3, 3, 2, "cultista arrependido", 15);
 Claudio.adicionarItem('proteção pesada');
 Claudio.adicionarItem('faca');
-console.log(Claudio.hp_maximo,Claudio.sanidade_maxima ,Claudio.pe_maximo, Claudio.defesa, Claudio.capacidadeInventario, Claudio.limite_PE)
+console.log(Claudio.hp,Claudio.sanidade ,Claudio.pe, Claudio.defesa, Claudio.capacidadeInventario, Claudio.limite_PE)
