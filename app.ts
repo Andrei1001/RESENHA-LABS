@@ -19,17 +19,7 @@ class personagem {
 
 
 
-    adicionarItem(item:string){ // Sistema de adicionar um item pro inventario e calcular o peso dele
-        const itens = ['FACA', 'MARTELO', 'PUNHAL', 'BASTÃO', 'MACHETE', 'LANÇA', 'CAJADO', 'ARCO', 'BESTA',
-        'PISTOLA', 'REVÓLVER', 'FUZIL DE CAÇA', 'MACHADINHA', 'NUNCHAKO', 'CORRENTE', 'ESPADA', 'FLORETE', 'MACHADO',
-        'MAÇA', 'ACHA', 'GADANHO', 'KATANA', 'MARRETA', 'MONTANTE', 'MOTOSSERRA', 'ARCO COMPOSTO', 'BALESTRA', 'SUBMETRALHADORA',
-        'ESPINGARDA', 'FUZIL DE ASSALTO', 'FUZIL DE PRECISÃO', 'BAZUCA', 'LANÇA-CHAMAS', 'METRALHADORA', 'BALAAS CURTAS',
-        'BALAS LONGAS', 'CARTUCHOS', 'COMBUSTÍVEL', 'FLECHAS', 'FOGUETE', 'KIT DE PERÍCIA', 'UTENSÍLIO', 'VESTIMENTA',
-        'GRANADA DE ATORDOAMENTO', 'GRANADA DE FRAGMENTAÇÃO', 'GRANADA DE FUMAÇA', 'GRANADA INCENDIÁRIA', 'MINA ANTIPESSOAL',
-        'ALGEMAS', 'ARPÉU', 'BANDOLEIRA', 'BINÓCULOS', 'BLOQUEADOR DE SINAL', 'CICATRIZANTE', 'CORDA',
-        'EQUIPAMENTO DE SOBREVIVÊNCIA', 'LANTERNA TÁTICA', 'MÁSCARA DE GÁS', 'MOCHILA MILITAR', 'ÓCULOS DE VISÃO TÉRMICA',
-        'PÉ DE CABRA', 'PISTOLA DE DARDOS', 'PISTOLA SINALIZADORA', 'SOQUEIRA', 'SPRAY DE PIMENTA', 'TASER', 'TRAJE HAZMAT',
-        'PROTEÇÃO LEVE', 'PROTEÇÃO PESADA', 'ESCUDO'];      
+    adicionarItem(item:string){ // Sistema de adicionar um item pro inventario e calcular o peso dele  
         item = item.toUpperCase();
         this._inventario.push(item);
         if(item == "PROTEÇÃO LEVE"){ // Se a proteção for leve aumenta a defesa em 5
