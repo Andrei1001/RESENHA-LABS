@@ -25,12 +25,11 @@ class personagem {
 
     // Método para criar habilidades
     criarHabilidade(slot: number, atributo: string, dados: number, tipo: number, bonusAcerto: number, bonusDano: number) {
-
+        slot --;
         atributo = atributo.toUpperCase();
-
         // Limite de slots
         if (slot < 0 || slot > 4) {
-            throw new Error("Slot inválido (0 a 4)");
+            throw new Error("Slot inválido (1 a 5)");
         }
 
         // Regra das classes
@@ -308,6 +307,7 @@ class personagem {
         }
         return (this._nex > 1) ? base + mult * (this._nex - 1) : base;
     }
+    // Getter pra capacidade do inventario
 
     get capacidadeInventario() {
         return this._capacidadeInventario;
