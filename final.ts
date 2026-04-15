@@ -12,3 +12,14 @@ class personagem {
     private _sanidadeAtual = 0;
     private _peAtual = 0;
 }
+constructor(nome: string, classe: string, forca: number, agilidade: number, vigor: number,
+        intelecto: number, presenca: number, nex: number) {
+        this._classe = classe.toUpperCase();
+        this._atributos.push(forca, agilidade, vigor, intelecto, presenca);
+        this._nome = nome;
+        this._nex = nex / 5;
+        this._capacidadeInventario = 5 * forca;
+        this._hpAtual = this.hp;
+        this._sanidadeAtual = this.sanidade;
+        this._peAtual = this.pe;
+    }
