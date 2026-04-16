@@ -107,7 +107,7 @@ class personagem {
         const ehRitual = hab.atributo == "INTELECTO";
 
         if (ehRitual) {
-            custoPE = 3;
+            custoPE = 5;
 
             if (this._peAtual < custoPE) {
                 console.log("PE insuficiente");
