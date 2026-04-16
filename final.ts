@@ -400,10 +400,7 @@ class personagem {
     Se você for um ocultista vc pode criar ataques usando Intelecto, eles se chamam "Rituais", eles gastam PE e causam dano na Sanidade)
 */
 
-let listaPersonagens: personagem[] = [
-    new personagem('Claudio', 'COMBATENTE', 3, 3, 3, 3, 3, 50),
-    new personagem('Marco', 'OCULTISTA', 3, 3, 3, 3, 3, 50)
-]
+let listaPersonagens: personagem[] = []
 function menu() {
     console.log("====== MENU =======")
     console.log("1- Criar Personagem")
@@ -651,8 +648,6 @@ function alterarStatus() {
     console.log(`Novo valor: ${p[chave]} / ${max}`);
     prompt('Aperte Enter para continuar');
 }
-listaPersonagens[0].criarHabilidade(1, 'FORÇA', 3, 4, 10, 10);
-listaPersonagens[1].criarHabilidade(1, 'INTELECTO', 10, 4, 10, 10);
 while (true) {
     const opcao = menu();
     if (opcao == null) {
