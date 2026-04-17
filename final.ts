@@ -11,7 +11,7 @@ class personagem {
     private _hpAtual = 0
     private _sanidadeAtual = 0
     private _peAtual = 0
-
+    
     constructor(nome: string, classe: string, forca: number, agilidade: number, vigor: number,
         intelecto: number, presenca: number, nex: number) {
         this._classe = classe.toUpperCase()
@@ -136,7 +136,6 @@ class personagem {
 
     static combate(p1: personagem, p2: personagem) { // Metodo para o combate
         let turno = 0
-
         while (
             p1._hpAtual > 0 && p2._hpAtual > 0 &&
             p1._sanidadeAtual > 0 && p2._sanidadeAtual > 0
@@ -175,7 +174,8 @@ class personagem {
             // Dano causado e tipo
             if (hab.atributo === "INTELECTO") {
                 console.log(atacante._nome + " causou " + dano + " de dano de Sanidade ao " + defensor._nome)
-            } else {
+            } 
+            if(hab.atributo === "FORÇA" || hab.atributo === "AGILIDADE") {
                 console.log(atacante._nome + " causou " + dano + " de dano ao " + defensor._nome)
             }
 
@@ -184,40 +184,58 @@ class personagem {
         // Decidir Vencedor
         let vencedor
 
-        if (p1._hpAtual <= 0 || p1._sanidadeAtual <= 0) vencedor = p2._nome
-        else vencedor = p1._nome
-
+        if (p1._hpAtual <= 0 || p1._sanidadeAtual <= 0) {
+            vencedor = p2._nome
+            p1._hpAtual = p1.hp, p1._sanidadeAtual = p1.sanidade
+            p2._hpAtual = p2.hp, p2._sanidadeAtual = p2.sanidade
+            return console.log("Vencedor:", vencedor)
+        }
+        p1._hpAtual = p1.hp, p1._sanidadeAtual = p1.sanidade
+        p2._hpAtual = p2.hp, p2._sanidadeAtual = p2.sanidade
+        vencedor = p1._nome
         console.log("Vencedor:", vencedor)
     }
 
     receberDanoHP(valor: number) { // Metodo para reduzir o HP Atual
         this._hpAtual -= valor
-        if (this._hpAtual < 0) this._hpAtual = 0
+        if (this._hpAtual < 0) {
+            this._hpAtual = 0
+        }
     }
 
     curarHP(valor: number) { // Metodo para aumentar o HP Atual
         this._hpAtual += valor
-        if (this._hpAtual > this.hp) this._hpAtual = this.hp
+        if (this._hpAtual > this.hp) {
+            this._hpAtual = this.hp
+        }
     }
 
     receberDanoSanidade(valor: number) { // Metodo para reduzir a Sanidade Atual
         this._sanidadeAtual -= valor
-        if (this._sanidadeAtual < 0) this._sanidadeAtual = 0
+        if (this._sanidadeAtual < 0) {
+            this._sanidadeAtual = 0
+        }
     }
 
     recuperarSanidade(valor: number) { // Metodo para aumentar a Sanidade Atual
         this._sanidadeAtual += valor
-        if (this._sanidadeAtual > this.sanidade) this._sanidadeAtual = this.sanidade
+        if (this._sanidadeAtual > this.sanidade) {
+            this._sanidadeAtual = this.sanidade
+        }
     }
 
     gastarPE(valor: number) { // Metodo para reduzir o PE Atual
         this._peAtual -= valor
-        if (this._peAtual < 0) this._peAtual = 0
+        if (this._peAtual < 0) {
+            this._peAtual = 0
+        }
     }
 
     recuperarPE(valor: number) { // Metodo para aumentar o PE Atual
         this._peAtual += valor
-        if (this._peAtual > this.pe) this._peAtual = this.pe
+        if (this._peAtual > this.pe) {
+            this._peAtual = this.pe
+        }
     }
 
     adicionarItem(item: string) {// Metodo pro inventário
@@ -260,7 +278,7 @@ class personagem {
         }
         if (item === "PROTEÇÃO PESADA") {
             this._protecao = 10;
-            this.capacidadeInventario - 5
+            this._capacidadeInventario -= 5
             this._inventario.push(item)
             return
         }
@@ -315,6 +333,9 @@ class personagem {
     get capacidadeInventario() {
         return this._capacidadeInventario
     }
+    get inventarioMax() {
+        return this._inventarioMax
+    }
     get habilidades(): any[] {
         return Object.values(this._habilidades)
     }
@@ -351,19 +372,19 @@ class personagem {
 
         return (this._nex > 1) ? sanidade_inicial + sanidade_nex : sanidade_inicial
     }
-    get pe() {adicionarItem
+    get pe() {
         let pe_inicial: number = 0, pe_nex: number = 0
         if (this._classe === "COMBATENTE") {
             pe_inicial = 2 + this._atributos[4]
-            pe_nex = 2 + this._atributos[4]
+            pe_nex = 2 + this._atributos[4] * (this._nex - 1)
         }
         if (this._classe === "ESPECIALISTA") {
             pe_inicial = 3 + this._atributos[4]
-            pe_nex = 3 + this._atributos[4]
+            pe_nex = 3 + this._atributos[4] * (this._nex - 1)
         }
         if (this._classe === "OCULTISTA") {
             pe_inicial = 4 + this._atributos[4]
-            pe_nex = 4 + this._atributos[4]
+            pe_nex = 4 + this._atributos[4] * (this._nex - 1)
         }
         return (this._nex > 1) ? pe_inicial + pe_nex : pe_inicial
     }
@@ -400,7 +421,12 @@ class personagem {
     Se você for um ocultista vc pode criar ataques usando Intelecto, eles se chamam "Rituais", eles gastam PE e causam dano na Sanidade)
 */
 
-let listaPersonagens: personagem[] = []
+let listaPersonagens: personagem[] = [
+    new personagem('Claudio', 'COMBATENTE', 3, 3, 3, 3, 3, 50),
+    new personagem('Marco', 'OCULTISTA', 3, 3, 3, 3, 3, 50)
+]
+listaPersonagens[0].criarHabilidade(1, 'FORÇA', 3, 4, 10, 10);
+listaPersonagens[1].criarHabilidade(1, 'INTELECTO', 10, 4, 10, 10);
 function menu() {
     console.log("====== MENU =======")
     console.log("1- Criar Personagem")
@@ -472,6 +498,7 @@ function combate() {
         return
     }
     personagem.combate(perso1, perso2)
+    console.clear
 }
 function listarPersonagens() {
     console.clear()
@@ -568,26 +595,26 @@ function statusPersonagem() {
         return;
     }
     const p = perso as any
-
+    console.log('========== STATUS ==========')
     console.log(`Nome: ${p.nome}`)
     console.log(`Classe: ${p.classe}`)
     console.log(`NEX: ${p.nex}`)
-
+    console.log('============================')
     console.log("Atributos:")
     console.log(`Força: ${p.forca}`)
     console.log(`Agilidade: ${p.agilidade}`)
     console.log(`Vigor: ${p.vigor}`)
     console.log(`Intelecto: ${p.intelecto}`)
     console.log(`Presença: ${p.presenca}`)
-
+    console.log('============================')
     console.log(`Defesa: ${p.defesa}`)
-
+    console.log('============================')
     console.log(`HP: ${p.hpAtual} / ${p.hp}`)
     console.log(`Sanidade: ${p.sanidadeAtual} / ${p.sanidade}`)
     console.log(`PE: ${p.peAtual} / ${p.pe}`)
-
-    const inventarioAtual = p._inventario?.length || 0
-    console.log(`Inventário: ${inventarioAtual} / ${p._capacidadeInventario}`)
+    console.log('============================')
+    console.log(`Inventário: ${p.capacidadeInventario} / ${p.inventarioMax}`)
+    console.log('============================')
     prompt('Aperte Enter para continuar')
 }
 function alterarStatus() {
