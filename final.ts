@@ -86,9 +86,9 @@ class personagem {
         if(hab.atributo == "FORÇA") atributoValor = this._atributos[0]
         if(hab.atributo == "AGILIDADE") atributoValor = this._atributos[1]
 
-        let custoPE = 0;
+        let custoPE = 3;
 
-        if (!atributoValor) {
+     if (!atributoValor) {
             console.log("Atributo inválido");
             return 0;
         }
@@ -101,9 +101,9 @@ class personagem {
         const ehRitual = hab.atributo == "INTELECTO";
 
         if (ehRitual) {
-            custoPE = 5;
+            custoPE = 10;
             if (this._classe == "OCULTISTA") {
-                custoPE = 3;
+                custoPE = 5;
             }
             if (this._peAtual < custoPE) {
                 console.log("PE insuficiente");
