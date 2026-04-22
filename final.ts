@@ -48,8 +48,8 @@ class personagem {
             }
         }
         // Combatentes/Especialistas não podem ter rituais
-        if (atributo == "INTELECTO" && this._classe != "OCULTISTA") {
-            console.error("Apenas ocultistas podem criar rituais")
+        if (atributo == "INTELECTO" && this._classe == "COMBATENTE") {
+            console.error("Combatentes não podem criar rituais")
         }
 
 
@@ -73,16 +73,6 @@ class personagem {
         return total;
     }
 
-    private getAtributoValor(nome: string) {
-        switch (nome) {
-            case "FORÇA": return this._atributos[0];
-            case "AGILIDADE": return this._atributos[1];
-            case "VIGOR": return this._atributos[2];
-            case "INTELECTO": return this._atributos[3];
-            case "PRESENÇA": return this._atributos[4];
-        }
-        return 0;
-    }
     atacar(alvo: personagem, indiceHab: number) {
         const hab = this._habilidades[indiceHab];
 
@@ -90,8 +80,12 @@ class personagem {
             console.log("Habilidade inválida");
             return 0;
         }
+        
 
-        let atributoValor = this.getAtributoValor(hab.atributo);
+        let atributoValor = this._atributos[3]
+        if(hab.atributo == "FORÇA") atributoValor = this._atributos[0]
+        if(hab.atributo == "AGILIDADE") atributoValor = this._atributos[1]
+
         let custoPE = 0;
 
         if (!atributoValor) {
@@ -108,7 +102,9 @@ class personagem {
 
         if (ehRitual) {
             custoPE = 5;
-
+            if (this._classe == "OCULTISTA") {
+                custoPE = 3;
+            }
             if (this._peAtual < custoPE) {
                 console.log("PE insuficiente");
                 return 0;
@@ -340,14 +336,10 @@ class personagem {
         return Object.values(this._habilidades)
     }
     get hp() {
-        let hp_inicial: number = 0, hp_nex: number = 0
+        let hp_inicial: number = 16 + this._atributos[2], hp_nex: number = (3 + this._atributos[2]) * (this._nex - 1)
         if (this._classe === "COMBATENTE") {
             hp_inicial = 20 + this._atributos[2]
             hp_nex = (4 + this._atributos[2]) * (this._nex - 1)
-        }
-        if (this._classe === "ESPECIALISTA") {
-            hp_inicial = 16 + this._atributos[2]
-            hp_nex = (3 + this._atributos[2]) * (this._nex - 1)
         }
         if (this._classe === "OCULTISTA") {
             hp_inicial = 12 + this._atributos[2]
@@ -356,14 +348,10 @@ class personagem {
         return (this._nex > 1) ? hp_inicial + hp_nex : hp_inicial;
     }
     get sanidade() {
-        let sanidade_inicial: number = 0, sanidade_nex: number = 0
+        let sanidade_inicial: number = 16, sanidade_nex: number = 4 * (this._nex - 1)
         if (this._classe === "COMBATENTE") {
             sanidade_inicial = 12
             sanidade_nex = 3 * (this._nex - 1)
-        }
-        if (this._classe === "ESPECIALISTA") {
-            sanidade_inicial = 16
-            sanidade_nex = 4 * (this._nex - 1)
         }
         if (this._classe === "OCULTISTA") {
             sanidade_inicial = 20
@@ -373,14 +361,10 @@ class personagem {
         return (this._nex > 1) ? sanidade_inicial + sanidade_nex : sanidade_inicial
     }
     get pe() {
-        let pe_inicial: number = 0, pe_nex: number = 0
+        let pe_inicial: number = 3 + this._atributos[4], pe_nex: number = 3 + this._atributos[4] * (this._nex - 1)
         if (this._classe === "COMBATENTE") {
             pe_inicial = 2 + this._atributos[4]
             pe_nex = 2 + this._atributos[4] * (this._nex - 1)
-        }
-        if (this._classe === "ESPECIALISTA") {
-            pe_inicial = 3 + this._atributos[4]
-            pe_nex = 3 + this._atributos[4] * (this._nex - 1)
         }
         if (this._classe === "OCULTISTA") {
             pe_inicial = 4 + this._atributos[4]
@@ -421,12 +405,7 @@ class personagem {
     Se você for um ocultista vc pode criar ataques usando Intelecto, eles se chamam "Rituais", eles gastam PE e causam dano na Sanidade)
 */
 
-let listaPersonagens: personagem[] = [
-    new personagem('Claudio', 'COMBATENTE', 3, 3, 3, 3, 3, 50),
-    new personagem('Marco', 'OCULTISTA', 3, 3, 3, 3, 3, 50)
-]
-listaPersonagens[0].criarHabilidade(1, 'FORÇA', 3, 4, 10, 10);
-listaPersonagens[1].criarHabilidade(1, 'INTELECTO', 10, 4, 10, 10);
+let listaPersonagens: personagem[] = []
 function menu() {
     console.log("====== MENU =======")
     console.log("1- Criar Personagem")
