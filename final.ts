@@ -105,10 +105,10 @@ class personagem {
             if (this._classe == "OCULTISTA") {
                 custoPE = 5;
             }
-            if (this._peAtual < custoPE) {
+        }
+        if (this._peAtual < custoPE) {
                 console.log("PE insuficiente");
                 return 0;
-            }
         }
 
         const ataque = this.rolarD20(atributoValor) + hab.bonusAcerto;
