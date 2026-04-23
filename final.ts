@@ -59,7 +59,7 @@ class personagem {
     private rolarD20(qtd: number) { // Método para rolar os d20s (acerto)
         let maior = 0;
         for (let i = 0; i < qtd; i++) {
-            const roll = Math.floor(Math.random() * 20) + 1;
+            const roll = Math.floor(Math.random() * 19) + 1;
             if (roll > maior) maior = roll
         }
         return maior;
@@ -86,9 +86,9 @@ class personagem {
         if(hab.atributo == "FORÇA") atributoValor = this._atributos[0]
         if(hab.atributo == "AGILIDADE") atributoValor = this._atributos[1]
 
-        let custoPE = 3;
+        let custoPE = 0;
 
-     if (!atributoValor) {
+        if (!atributoValor) {
             console.log("Atributo inválido");
             return 0;
         }
@@ -101,14 +101,14 @@ class personagem {
         const ehRitual = hab.atributo == "INTELECTO";
 
         if (ehRitual) {
-            custoPE = 10;
+            custoPE = 5;
             if (this._classe == "OCULTISTA") {
-                custoPE = 5;
+                custoPE = 3;
             }
-        }
-        if (this._peAtual < custoPE) {
+            if (this._peAtual < custoPE) {
                 console.log("PE insuficiente");
                 return 0;
+            }
         }
 
         const ataque = this.rolarD20(atributoValor) + hab.bonusAcerto;
@@ -405,7 +405,12 @@ class personagem {
     Se você for um ocultista vc pode criar ataques usando Intelecto, eles se chamam "Rituais", eles gastam PE e causam dano na Sanidade)
 */
 
-let listaPersonagens: personagem[] = []
+let listaPersonagens: personagem[] = [
+    new personagem('Claudio', 'COMBATENTE', 3, 3, 3, 3, 3, 50),
+    new personagem('Marco', 'ESPECIALISTA', 3, 3, 3, 3, 3, 50)
+]
+listaPersonagens[0].criarHabilidade(1, 'FORÇA', 3, 4, 10, 10);
+listaPersonagens[1].criarHabilidade(1, 'INTELECTO', 10, 4, 10, 10);
 function menu() {
     console.log("====== MENU =======")
     console.log("1- Criar Personagem")
