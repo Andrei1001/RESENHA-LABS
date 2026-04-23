@@ -427,22 +427,23 @@ function menu() {
 }
 function criarPersonagem() {
     console.clear()
-    let nome = String(prompt("Digite o nome do seu personagem"))
+    let nome = String(prompt("Digite o nome do seu personagem: "))
     nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase()
-    const classe = String(prompt("Digite a classe do seu personagem"))
-    const forca = Number(prompt("Digite a forca do seu personagem"))
-    const agil = Number(prompt("Agilidade do personagem"))
-    const vig = Number(prompt("Vigor do personagem"))
-    const int = Number(prompt("Inteligencia do personagem"))
-    const pre = Number(prompt("Presenca do personagem"))
-    const nex = Number(prompt("Nex do personagem"))
+    const classe = String(prompt("Digite a classe do seu personagem: "))
+    const forca = Number(prompt("Digite a Força do seu personagem: "))
+    const agil = Number(prompt("Digite a Agilidade do personagem: "))
+    const vig = Number(prompt("Digite o Vigor do personagem: "))
+    const int = Number(prompt("Digite a Inteligencia do personagem: "))
+    const pre = Number(prompt("Digite a Presenca do personagem: "))
+    const nex = Number(prompt("Digite o NEX do personagem: "))
     const perso = new personagem(nome, classe, forca, agil, vig, int, pre, nex)
     listaPersonagens.push(perso)
     prompt('Aperte Enter para continuar')
+    console.clear()
 }
 function criarAtaque() {
     console.clear()
-    let nome = String(prompt('Escolha um personagem ja criado'))
+    let nome = String(prompt('Escolha um personagem ja criado: '))
     nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase()
     const perso = listaPersonagens.find(
         (p: personagem) => p.nome === nome
@@ -452,19 +453,20 @@ function criarAtaque() {
         console.error("personagem não encontrado")
         return
     }
-    let slot = Number(prompt('Qual slot ira ficar essa habilidade? (1 a 5) '))
-    const atri = String(prompt('Escolha o atributo que você vai usar')).toUpperCase()
-    const dados = Number(prompt('Digite quantos dados de dano serão causados'))
-    const lados = Number(prompt("Digite quantos lados os dados possuem"))
-    const hit = Number(prompt("Digite o acerto do ataque"))
-    const dmg = Number(prompt("Digite o bonus de dano"))
+    let slot = Number(prompt('Qual slot ira ficar essa habilidade? (1 a 5): '))
+    const atri = String(prompt('Escolha o atributo que você vai usar: ')).toUpperCase()
+    const dados = Number(prompt('Digite quantos dados de dano serão causados: '))
+    const lados = Number(prompt("Digite quantos lados os dados possuem: "))
+    const hit = Number(prompt("Digite o acerto do ataque: "))
+    const dmg = Number(prompt("Digite o bonus de dano: "))
     const ataque = perso.criarHabilidade(slot, atri, dados, lados, hit, dmg)
     prompt('Aperte Enter para continuar')
+    console.clear()
 }
 function combate() {
-    let nome1 = String(prompt('Digite o nome do primeiro personagem'))
+    let nome1 = String(prompt('Digite o nome do primeiro personagem: '))
     nome1 = nome1.charAt(0).toUpperCase() + nome1.slice(1).toLowerCase()
-    let nome2 = String(prompt('Digite o nome do segundo personagem'))
+    let nome2 = String(prompt('Digite o nome do segundo personagem: '))
     nome2 = nome2.charAt(0).toUpperCase() + nome2.slice(1).toLowerCase()
     const perso1 = listaPersonagens.find(
         (p: personagem) => p.nome === nome1
@@ -482,7 +484,7 @@ function combate() {
         return
     }
     personagem.combate(perso1, perso2)
-    console.clear
+    console.clear()
 }
 function listarPersonagens() {
     console.clear()
@@ -530,7 +532,7 @@ function listarAtaques() {
     prompt('Aperte Enter para continuar')
 }
 function adicionarItem() {
-    let nome = String(prompt('Escolha um personagem ja criado'))
+    let nome = String(prompt('Escolha um personagem ja criado: '))
     nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase()
     const perso = listaPersonagens.find(
         (p: personagem) => p.nome === nome
@@ -540,9 +542,10 @@ function adicionarItem() {
         console.error("personagem não encontrado");
         return;
     }
-    const item = String(prompt('Escolha um item'))
+    const item = String(prompt('Escolha um item: '))
     perso.adicionarItem(item);
     prompt('Aperte Enter para continuar');
+    console.clear()
 }
 function listarItens() {
     let nome = String(prompt('Escolha um personagem ja criado'))
@@ -565,10 +568,9 @@ function listarItens() {
     inventario.forEach((item: any, index: number) => {
         console.log(`Item ${index + 1}: ${item}`);
     });
-    prompt('Aperte Enter para continuar');
 }
 function statusPersonagem() {
-    let nome = String(prompt('Escolha um personagem ja criado'))
+    let nome = String(prompt('Escolha um personagem ja criado: '))
     nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase()
     const perso = listaPersonagens.find(
         (p: personagem) => p.nome === nome
@@ -600,9 +602,10 @@ function statusPersonagem() {
     console.log(`Inventário: ${p.capacidadeInventario} / ${p.inventarioMax}`)
     console.log('============================')
     prompt('Aperte Enter para continuar')
+    console.clear()
 }
 function alterarStatus() {
-    let nome = String(prompt('Escolha um personagem ja criado'))
+    let nome = String(prompt('Escolha um personagem ja criado: '))
     nome = nome.charAt(0).toUpperCase() + nome.slice(1).toLowerCase()
     const perso = listaPersonagens.find(
         (p: personagem) => p.nome === nome
@@ -614,7 +617,7 @@ function alterarStatus() {
     }
     const p = perso as any;
 
-    const tipo = String(prompt("O que deseja alterar? (HP / SANIDADE / PE)")).toUpperCase();
+    const tipo = String(prompt("O que deseja alterar? (HP / SANIDADE / PE): ")).toUpperCase();
 
     let atual: number;
     let max: number;
@@ -658,6 +661,7 @@ function alterarStatus() {
 
     console.log(`Novo valor: ${p[chave]} / ${max}`);
     prompt('Aperte Enter para continuar');
+    console.clear()
 }
 while (true) {
     const opcao = menu();
