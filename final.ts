@@ -95,15 +95,15 @@ class personagem {
 
         if (!hab.dados || !hab.tipo) {
             console.log("Dados inválidos");
-            return 0;
+            return 3;
         }
 
         const ehRitual = hab.atributo == "INTELECTO";
 
         if (ehRitual) {
-            custoPE = 5;
+            custoPE = 10;
             if (this._classe == "OCULTISTA") {
-                custoPE = 3;
+                custoPE = 5;
             }
             if (this._peAtual < custoPE) {
                 console.log("PE insuficiente");
