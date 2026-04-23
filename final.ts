@@ -11,7 +11,7 @@ class personagem {
     private _hpAtual = 0
     private _sanidadeAtual = 0
     private _peAtual = 0
-    
+
     constructor(nome: string, classe: string, forca: number, agilidade: number, vigor: number,
         intelecto: number, presenca: number, nex: number) {
         this._classe = classe.toUpperCase()
@@ -80,13 +80,13 @@ class personagem {
             console.log("Habilidade inválida");
             return 0;
         }
-        
+
 
         let atributoValor = this._atributos[3]
-        if(hab.atributo == "FORÇA") atributoValor = this._atributos[0]
-        if(hab.atributo == "AGILIDADE") atributoValor = this._atributos[1]
+        if (hab.atributo == "FORÇA") atributoValor = this._atributos[0]
+        if (hab.atributo == "AGILIDADE") atributoValor = this._atributos[1]
 
-        let custoPE = 0;
+        let custoPE = 3;
 
         if (!atributoValor) {
             console.log("Atributo inválido");
@@ -105,12 +105,12 @@ class personagem {
             if (this._classe == "OCULTISTA") {
                 custoPE = 5;
             }
-            if (this._peAtual < custoPE) {
-                console.log("PE insuficiente");
-                return 0;
-            }
-        }
 
+        }
+        if (this._peAtual < custoPE) {
+            console.log("PE insuficiente");
+            return 0;
+        }
         const ataque = this.rolarD20(atributoValor) + hab.bonusAcerto;
 
         if (ataque >= alvo.defesa) {
@@ -170,8 +170,8 @@ class personagem {
             // Dano causado e tipo
             if (hab.atributo === "INTELECTO") {
                 console.log(atacante._nome + " causou " + dano + " de dano de Sanidade ao " + defensor._nome)
-            } 
-            if(hab.atributo === "FORÇA" || hab.atributo === "AGILIDADE") {
+            }
+            if (hab.atributo === "FORÇA" || hab.atributo === "AGILIDADE") {
                 console.log(atacante._nome + " causou " + dano + " de dano ao " + defensor._nome)
             }
 
